@@ -1,0 +1,162 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draad-512 Font Visualiser</title>
+<style>
+@font-face {
+  font-family: 'Draad512';
+  src: url('https://raw.githubusercontent.com/cholyoake/WGP-font/a01002377e1242c9b1b8b059a209a4c9effe6a86/Draad-FiveHundredTwelve.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #0a0a0a;
+  color: #ffffff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.controls {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #222;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 180px;
+  height: 2px;
+  background: #333;
+  outline: none;
+  border-radius: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  border: none;
+}
+
+.value-display {
+  font-size: 12px;
+  color: #999;
+  min-width: 48px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.text-area {
+  flex: 1;
+  overflow-y: auto;
+}
+
+[contenteditable] {
+  font-family: 'Draad512', monospace;
+  outline: none;
+  caret-color: #fff;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  min-height: 100px;
+  padding: 8px 0;
+}
+
+[contenteditable]:empty::before {
+  content: 'Start typing...';
+  color: #333;
+}
+</style>
+</head>
+<body>
+<div class="controls">
+  <div class="control-group">
+    <label>Font Size</label>
+    <div class="slider-row">
+      <input type="range" id="fontSize" min="8" max="200" value="64">
+      <span class="value-display" id="fontSizeVal">64px</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label>Leading</label>
+    <div class="slider-row">
+      <input type="range" id="leading" min="0.6" max="3" value="1.2" step="0.05">
+      <span class="value-display" id="leadingVal">1.2</span>
+    </div>
+  </div>
+</div>
+<div class="text-area">
+  <div contenteditable="true" id="editor" spellcheck="false">Draad 512</div>
+</div>
+<script>
+const editor = document.getElementById('editor');
+const fontSizeSlider = document.getElementById('fontSize');
+const leadingSlider = document.getElementById('leading');
+const fontSizeVal = document.getElementById('fontSizeVal');
+const leadingVal = document.getElementById('leadingVal');
+
+function update() {
+  const fs = fontSizeSlider.value;
+  const ld = leadingSlider.value;
+  editor.style.fontSize = fs + 'px';
+  editor.style.lineHeight = ld;
+  fontSizeVal.textContent = fs + 'px';
+  leadingVal.textContent = ld;
+}
+
+fontSizeSlider.addEventListener('input', update);
+leadingSlider.addEventListener('input', update);
+update();
+</script>
+</body>
+</html>
+```
